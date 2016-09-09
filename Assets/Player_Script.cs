@@ -6,7 +6,7 @@ public class Player_Script : MonoBehaviour {
 
 	//base speed of the ship
 	const int SPEED = 20;
-	const int TURNSPEED = 100;
+	const int TURNSPEED = 50;
 
 	//locations of mouse and center of screen (ship)
 	Vector3 mouseLocation;
@@ -44,27 +44,29 @@ public class Player_Script : MonoBehaviour {
 
 
 		if (diff2D.y > 0 && diff2D.x < 0) {
-			mouseAngle = 180 + mouseAngle;
+			mouseAngle = 90 + mouseAngle;
 		} else if (diff2D.y < 0 && diff2D.x < 0) {
-			mouseAngle = 180 + mouseAngle;
+			mouseAngle = 90 + mouseAngle;
 		} else if (diff2D.y < 0 && diff2D.x > 0) {
-			mouseAngle = 360 + mouseAngle;
+			mouseAngle = 270 + mouseAngle;
+		} else {
+			mouseAngle += 270;
 		}
 			
 		//Debug.Log (mouseAngle);
 
-		shipAngle = transform.eulerAngles.z - 90;
+		shipAngle = transform.eulerAngles.z;
 		//Debug.Log (shipAngle);
 
 		// angle that the ship needs to turn
-		angleToTurn = mouseAngle - shipAngle + 180;
+		angleToTurn = mouseAngle - shipAngle;
 		Debug.Log (angleToTurn);
 
-		if (angleToTurn > 180) {
+		if (angleToTurn < 0) {
 			GetComponent<Rigidbody2D> ().angularVelocity = -TURNSPEED;
-		} else if (angleToTurn <= 180 && angleToTurn > 5) {
+		} else if (angleToTurn > 0) {
 			GetComponent<Rigidbody2D> ().angularVelocity = TURNSPEED;
-		} else{
+		} else {
 			GetComponent<Rigidbody2D> ().angularVelocity = 0;
 		}
 		 
