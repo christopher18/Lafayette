@@ -5,15 +5,8 @@ using System.Collections;
 public class Player_Script : MonoBehaviour {
 
 	//base speed of the ship
-	const int SPEED = 20;
-	const int TURNSPEED = 50;
-
-	//locations of mouse and center of screen (ship)
-	Vector3 mouseLocation;
-	float mouseX;
-	float mouseY;
-	float shipX;
-	float shipY;
+	const int SPEED = 2;
+	const int TURNSPEED = 100;
 
 	//angle of ship, and to mouse
 	float shipAngle;
@@ -27,16 +20,9 @@ public class Player_Script : MonoBehaviour {
 	}
 		
 	void FixedUpdate () {
+		
 
-		//define location variables
-//		mouseLocation = Input.mousePosition;
-//		mouseX = mouseLocation.x;
-//		mouseY = mouseLocation.y;
-//		shipX = transform.position.x;
-//		shipY = transform.position.x;
-
-		Vector3 mousePlace = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 2.5f));
-
+		Vector3 mousePlace = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 2.5f));
 		Vector2 diff2D = new Vector2 (mousePlace.x, mousePlace.y);
 
 		//angle from center of screen to mouse, in degrees
@@ -53,23 +39,37 @@ public class Player_Script : MonoBehaviour {
 			mouseAngle += 270;
 		}
 			
-		//Debug.Log (mouseAngle);
+		Debug.Log (mouseAngle);
 
 		shipAngle = transform.eulerAngles.z;
 		//Debug.Log (shipAngle);
 
-		// angle that the ship needs to turn
-		angleToTurn = mouseAngle - shipAngle;
-		Debug.Log (angleToTurn);
-
-		if (angleToTurn < 0) {
-			GetComponent<Rigidbody2D> ().angularVelocity = -TURNSPEED;
-		} else if (angleToTurn > 0) {
-			GetComponent<Rigidbody2D> ().angularVelocity = TURNSPEED;
+		//clean and efficient turns
+		if (shipAngle > mouseAngle) {
+			angleToTurn = shipAngle - mouseAngle;
+			if (angleToTurn > 180) {
+				GetComponent<Rigidbody2D> ().angularVelocity = TURNSPEED;
+			} else if (angleToTurn < 2) {
+				GetComponent<Rigidbody2D> ().angularVelocity = 0;
+			} else {
+				GetComponent<Rigidbody2D> ().angularVelocity = -TURNSPEED;
+			}
 		} else {
-			GetComponent<Rigidbody2D> ().angularVelocity = 0;
+			angleToTurn = mouseAngle - shipAngle;
+			if (angleToTurn > 180) {
+				GetComponent<Rigidbody2D> ().angularVelocity = -TURNSPEED;
+			} else if (angleToTurn < 2) {
+				GetComponent<Rigidbody2D> ().angularVelocity = 0;
+			} else {
+				GetComponent<Rigidbody2D> ().angularVelocity = TURNSPEED;
+			}
 		}
-		 
+
+//		//move in direction the ship is facing
+//		Vector2 curFace = new Vector2 (1, Mathf.Tan(transform.eulerAngles.z));
+//		curFace.Normalize ();
+//		//Debug.Log (curFace);
+//		GetComponent<Rigidbody2D> ().velocity = new Vector2 (1,0) * SPEED;
 	}
 
 }
