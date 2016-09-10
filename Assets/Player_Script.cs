@@ -5,8 +5,9 @@ using System.Collections;
 public class Player_Script : MonoBehaviour {
 
 	//base speed of the ship
-	public float speed = 10;
-	public float turnspeed = 4;
+	public float speed;
+	public float turnspeed;
+	public int ammoCount;
 
 	//angle of ship, and to mouse
 	float shipAngle;
@@ -17,6 +18,19 @@ public class Player_Script : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+	}
+
+	//shooting
+	void Update() {
+		bool shoot = Input.GetButtonDown ("Fire1");
+
+		if (shoot) {
+			Weapon_Script weapon = GetComponent<Weapon_Script> ();
+			if (weapon != null) {
+				//false because player is no enemy
+				weapon.Attack (false, this.transform, ammoCount);
+			}
+		}
 	}
 
 	void FixedUpdate() {
@@ -38,7 +52,7 @@ public class Player_Script : MonoBehaviour {
 
 		//set velocity at facing direction
 		GetComponent<Rigidbody2D> ().velocity = gameObject.transform.up * speed * percentMagnitude;
-		Debug.Log (percentMagnitude);
+		//Debug.Log (percentMagnitude);
 	}
 		
 //	void FixedUpdate () {

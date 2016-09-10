@@ -45,8 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Cannon_Script.cs" />
+     <Compile Include="Assets\Health_Script.cs" />
      <Compile Include="Assets\MainCamera_Script.cs" />
      <Compile Include="Assets\Player_Script.cs" />
+     <Compile Include="Assets\Treasure_Spawn.cs" />
+     <Compile Include="Assets\Weapon_Script.cs" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
