@@ -49,6 +49,7 @@
      <Compile Include="Assets\Health_Script.cs" />
      <Compile Include="Assets\MainCamera_Script.cs" />
      <Compile Include="Assets\Player_Script.cs" />
+     <Compile Include="Assets\PowerUp.cs" />
      <Compile Include="Assets\Treasure_Spawn.cs" />
      <Compile Include="Assets\Weapon_Script.cs" />
  <Reference Include="UnityEngine.Networking">

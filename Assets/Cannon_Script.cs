@@ -11,7 +11,7 @@ public class Cannon_Script : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Destroy (gameObject, 15); //will destroy after 15 seconds
+		Destroy (gameObject, 6); //will destroy after 15 seconds
 	}
 	
 	// Update is called once per frame
